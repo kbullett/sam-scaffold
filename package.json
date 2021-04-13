@@ -20,8 +20,8 @@
   },
   "homepage": "https://github.com/Giftbit/sam-scaffold#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.7",
-    "@babel/preset-env": "^7.8.7",
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "@types/chai": "^4.2.10",
     "@types/mocha": "^7.0.2",
     "@types/node": "10.x",

@@ -5,10 +5,10 @@
 
 # The name of your CloudFormation stack.  Two developers can share a stack by
 # sharing this value, or have their own with different values.
-STACK_NAME="MyProject"
+STACK_NAME="TestCodeStack"
 
 # The name of an S3 bucket on your account to hold deployment artifacts.
-BUILD_ARTIFACT_BUCKET="mys3artifactbucket"
+BUILD_ARTIFACT_BUCKET="kristan-kb-poc-rr"
 
 # Parameter values for the sam template.  see: `aws cloudformation deploy help`
 PARAMETER_OVERRIDES=""
@@ -60,10 +60,10 @@ elif [ "$COMMAND" = "deploy" ]; then
     npm run build
 
     OUTPUT_TEMPLATE_FILE="/tmp/SamDeploymentTemplate.`date "+%s"`.yaml"
-    aws cloudformation package --template-file infrastructure/sam.yaml --s3-bucket $BUILD_ARTIFACT_BUCKET --output-template-file "$OUTPUT_TEMPLATE_FILE"
+    aws cloudformation package --profile rankedright --template-file infrastructure/sam.yaml --s3-bucket $BUILD_ARTIFACT_BUCKET --output-template-file "$OUTPUT_TEMPLATE_FILE"
 
     echo "Executing aws cloudformation deploy..."
-    aws cloudformation deploy --template-file "$OUTPUT_TEMPLATE_FILE" --stack-name $STACK_NAME --capabilities CAPABILITY_IAM $PARAMETER_OVERRIDES
+    aws cloudformation deploy --profile rankedright --template-file "$OUTPUT_TEMPLATE_FILE" --stack-name $STACK_NAME --capabilities CAPABILITY_IAM $PARAMETER_OVERRIDES
 
     # cleanup
     rm "$OUTPUT_TEMPLATE_FILE"
