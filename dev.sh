@@ -50,7 +50,7 @@ if [ "$COMMAND" = "build" ]; then
     npm run build -- $BUILD_ARGS
 
 elif [ "$COMMAND" = "delete" ]; then
-    aws cloudformation delete-stack --stack-name $STACK_NAME
+    aws cloudformation delete-stack --profile rankedright --stack-name $STACK_NAME
 
 elif [ "$COMMAND" = "deploy" ]; then
     # Deploy all code and update the CloudFormation stack.

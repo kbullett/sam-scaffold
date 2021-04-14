@@ -46,6 +46,24 @@ Resources:
         # The guide recommends Enabled but I can't see why
         Status: Suspended
 
+  DeploymentArtifactBucketPolicy: # todo add delete policy
+    Type: AWS::IAM::Policy
+    Properties:
+      PolicyName: DeploymentArtifactBucketPolicy
+      Roles:
+        - !Ref CloudFormationServiceRole
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: 
+              - s3:PutObject
+              - s3:GetObject
+              - s3:ListBucket*
+            Resource: 
+              - !Sub "arn:aws:s3:::${DeploymentArtifactBucket}/*"
+              - !Sub "arn:aws:s3:::${DeploymentArtifactBucket}"
+
   CodeBuildServiceRole:
     Type: AWS::IAM::Role
     Properties:
@@ -93,7 +111,7 @@ Resources:
         # ComputeType options: BUILD_GENERAL1_SMALL, BUILD_GENERAL1_MEDIUM, BUILD_GENERAL1_LARGE
         ComputeType: BUILD_GENERAL1_SMALL
         # Run `aws codebuild list-curated-environment-images` for a complete list of images provided.
-        Image: aws/codebuild/nodejs:10
+        Image: aws/codebuild/amazonlinux2-x86_64-standard:3.0
         EnvironmentVariables:
           - Name: BUILD_ARTIFACT_BUCKET
             Value: !Ref DeploymentArtifactBucket
